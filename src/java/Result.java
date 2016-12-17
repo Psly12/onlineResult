@@ -52,9 +52,14 @@ public class Result extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
+             out.println("<meta charset=\"UTF-8\">\n" +
+                        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                        "<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/bootstrap/css/bootstrap.css\">\n" +
+                        "<link rel=\"stylesheet\" type=\"text/css\" href=\"./css/bootstrap/css/main.css\">"); 
             out.println("<title>  Result</title>");            
             out.println("</head>");
             out.println("<body>");
+      out.println("<div class=\"container\">");
       
             
 
@@ -68,14 +73,19 @@ public class Result extends HttpServlet {
 
       //  Database credentials
         final String USER = "root";
-        final String PASS = "tiger";
+        final String PASS = "";
  
       String title = "Online Result";
-      
+       
        
          out.println("<html> <head><title>" + title + "</title></head>\n" +
-         "<body bgcolor=\"#f0f0f0\">\n" +
-         "<h1 align=\"center\">" + title + "</h1>\n");
+         "<body>\n" +
+         "<div class=\"panel panel-info\">\n" +
+"  <div class=\"panel-heading\">"
+                 + "<div class=\"page-header\">\n" +
+"  <h1 class=\"panel-title\"> Online Result </h1>\n" +
+"</div></div>\n" +
+"  <div class=\"panel-body\">");
       try{
          // Register JDBC driver
          Class.forName("com.mysql.jdbc.Driver");
@@ -133,7 +143,19 @@ public class Result extends HttpServlet {
             out.println("Roll Number: " + id + "<br>"); 
             out.println("First Name: " + first + "<br>");
             out.println("Last Name: " + last + "<br>");
-        // out.println(size);
+            
+            //collapse
+                        out.println("<div class = \"panel-group \" id = \"accordion\">\n" +
+                            "<div class = \"panel panel-info \">\n" +
+                                "<div class = \"panel-heading\">\n" +
+                                "<h4 class = \"panel-title\">");
+            out.println("<a data-toggle = \"collapse\" data-parent = \"#accordion\" href = \"#collapseOne\" class=\"text-center btn btn-block\">\n" +
+                        "Show Details</a></h4>\n" +
+                        "</div>");
+            out.println("<div id = \"collapseOne\" class = \"panel-collapse collapse\">\n" +
+                            " <div class = \"panel-body\">");
+            
+            
          out.println("<table border=2>");
          out.println("<tr> <th> subject name </th> <th> subject code </th> <th> External marks obtained </th>  <th> External marks Minimum </th> <th> External marks maximum </th> <th> Internal marks obtained </th>  <th> internal marks Minimum </th> <th> internal marks maximum </th> </tr>  ");
          
@@ -152,6 +174,8 @@ public class Result extends HttpServlet {
          }
          
          out.println("</table>");
+         out.println("</div></div></div></div>");//detail end
+        out.println(" </div></div>");//panel close
          // Clean-up environment
          rs.close();
          stmt.close();
@@ -165,7 +189,10 @@ public class Result extends HttpServlet {
      
     
 } 
-             
+            out.println("<script src=\"./css/bootstrap/js/jquery.js\"></script>");
+            out.println("<script type=\"text/javascript\" src=\"./css/bootstrap/js/bootstrap.js\"></script>");
+            
+            out.println("</div>");
             out.println("</body>");
             out.println("</html>");
         }
