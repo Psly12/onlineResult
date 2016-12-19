@@ -12,24 +12,61 @@ and open the template in the editor.
 	<meta charset="utf-8">
 
 	<title>Login</title>
-
-	<link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap/css/main.css">
+	<link rel="stylesheet" href="./css/style.css"> 
  
 
 </head>
 
 <body>
+<!-- Single button -->
+ 
     <br> <br><br> <br><br> <br><br> <br><br> 
     <form method="get" action="Result">
 	<div class="login">
+            
+            
+            
+     
             <br> <br>
-    <input type="text" placeholder="Roll Number" id="roll" name="roll">    
+            
+         
+    
+    
+            <div class="inner-addon left-addon">
+                
+                
+    
+    <input type="text" class="form-control" placeholder="Roll Number" id="roll" name="roll">
+    <span class="glyphicon glyphicon-user"></span>
+    
+</div> 
     <br> 
   <input type="submit" value="Check Result">
+</div>  
+        <div class="container">
+	<div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div id="imaginary_container"> 
+                <div class="input-group stylish-input-group">
+                    <input type="text" class="form-control"  placeholder="Search" >
+                    <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>  
+                    </span>
+                </div>
+            </div>            
+        </div>
+	</div>
 </div>
     </form>
+      
 <div class="shadow"></div>
 
 
+            <script src="./css/bootstrap/js/jquery.js"></script>
+            <script type="text/javascript" src="./css/bootstrap/js/bootstrap.js"></script>
 </body>	
 </html>

@@ -4,16 +4,24 @@
         <servlet-name>Result</servlet-name>
         <servlet-class>Result</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OnlineResult</servlet-name>
+        <servlet-class>OnlineResult</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Result</servlet-name>
         <url-pattern>/Result</url-pattern>
-    </servlet-mapping>    
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OnlineResult</servlet-name>
+        <url-pattern>/OnlineResult</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-     <welcome-file-list>
+    <welcome-file-list>
         <welcome-file>/OnlineResult.html</welcome-file>
-    </welcome-file-list> 
+    </welcome-file-list>
 </web-app>

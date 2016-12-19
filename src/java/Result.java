@@ -35,6 +35,15 @@ public class Result extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
                     String num=request.getParameter("roll");
+         try (PrintWriter out = response.getWriter()) {
+             if(num.trim()=="")
+                    {
+                        
+                        RequestDispatcher rd=request.getRequestDispatcher("OnlineResult");                      
+                        rd.include(request, response);
+                        out.print("Sorry Roll number can not be empty!");
+                    }
+             
              String subjectName[];
              int subjectCode[];
              int e_marksObtained[];
@@ -47,7 +56,7 @@ public class Result extends HttpServlet {
            int id = 0 ;
            String first = null;
            String last = null;
-        try (PrintWriter out = response.getWriter()) {
+        
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -73,7 +82,7 @@ public class Result extends HttpServlet {
 
       //  Database credentials
         final String USER = "root";
-        final String PASS = "";
+        final String PASS = "Iamsherlocked@1";
  
       String title = "Online Result";
        
@@ -139,6 +148,18 @@ public class Result extends HttpServlet {
            walker++;
          } 
              walker=0;
+             int flag=1;
+             for(int i=0;i<size;i++)
+             {
+                 if(e_marksObtained[i]<e_minMarks[i]||i_marksObtained[i]<i_minMarks[i])
+                     flag=0;
+             }
+            
+             if(flag==1)
+                  out.println("<div class=\"alert alert-success\" role=\"alert\"> Congratulations "+first+" You have cleared the exam </div>");
+                 else
+                 out.println("<div class=\"alert alert-danger\" role=\"alert\"> Sorry "+first+" You have failed the exam </div>");
+                
               //Display values
             out.println("Roll Number: " + id + "<br>"); 
             out.println("First Name: " + first + "<br>");
@@ -156,7 +177,7 @@ public class Result extends HttpServlet {
                             " <div class = \"panel-body\">");
             
             
-         out.println("<table border=2>");
+         out.println("<table class=\"table\">");
          out.println("<tr> <th> subject name </th> <th> subject code </th> <th> External marks obtained </th>  <th> External marks Minimum </th> <th> External marks maximum </th> <th> Internal marks obtained </th>  <th> internal marks Minimum </th> <th> internal marks maximum </th> </tr>  ");
          
          for(int i=0;i<size;i++)
