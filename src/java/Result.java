@@ -94,11 +94,11 @@ public class Result extends HttpServlet {
   
       
         final String JDBC_DRIVER="com.mysql.jdbc.Driver";  
-        final String DB_URL="jdbc:mysql://localhost/axy";
+        final String DB_URL="jdbc:mysql://localhost/result";
 
       //  Database credentials
         final String USER = "root";
-        final String PASS = "Iamsherlocked@1";
+        final String PASS = "";
  
       String title = "Online Result";
        
@@ -130,7 +130,7 @@ public class Result extends HttpServlet {
          if(!rs.next())
          {
              RequestDispatcher rd=request.getRequestDispatcher("OnlineResult");   
-              out.print("<div class=\"alert alert-danger\" role=\"alert\">Sorry Roll number not found. <br> please check the roll number!</div>");
+              out.print("<div class=\"alert alert-warning\" role=\"alert\">Sorry Roll number not found. <br> please check the roll number!</div>");
                rd.include(request, response);
          }
          int walker=0;
@@ -199,7 +199,7 @@ public class Result extends HttpServlet {
                             " <div class = \"panel-body\">");
             
             
-         out.println("<table class=\"table\">");
+         out.println("<table class=\"table-striped\">");
          out.println("<tr> <th> subject name </th> <th> subject code </th> <th> External marks obtained </th>  <th> External marks Minimum </th> <th> External marks maximum </th> <th> Internal marks obtained </th>  <th> internal marks Minimum </th> <th> internal marks maximum </th> <th> Grade </th> </tr>  ");
          
          for(int i=0;i<size;i++)
