@@ -57,6 +57,8 @@ public class OnlineResult extends HttpServlet {
             out.println("<title>Somaiya Online Result</title>");            
             out.println("</head>");
             out.println("<body>");
+            String num=request.getParameter("roll");
+          
             
             out.println("<form method=\"get\" action=\"Result\"> <div class=\"container\">\n" +
 "	<div class=\"row\">\n" +
@@ -74,6 +76,8 @@ public class OnlineResult extends HttpServlet {
 "        </div>\n" +
 "	</div>\n" +
 "</div></form>"); 
+          
+            
             
             out.println("<script src=\"./css/bootstrap/js/jquery.js\"></script>");
             out.println("<script type=\"text/javascript\" src=\"./css/bootstrap/js/bootstrap.js\"></script>");

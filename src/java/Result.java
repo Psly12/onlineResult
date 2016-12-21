@@ -39,10 +39,23 @@ public class Result extends HttpServlet {
              if(num.trim()=="")
                     {
                         
-                        RequestDispatcher rd=request.getRequestDispatcher("OnlineResult");                      
+                        RequestDispatcher rd=request.getRequestDispatcher("OnlineResult");   
+                         out.print("<div class=\"alert alert-danger\" role=\"alert\">Sorry Roll number can not be empty!</div>");
                         rd.include(request, response);
-                        out.print("Sorry Roll number can not be empty!");
+                       
                     }
+             
+             try{
+                 int n=Integer.parseInt(num);
+             }catch(Exception e)
+             {
+                
+                        
+                        RequestDispatcher rd=request.getRequestDispatcher("OnlineResult");   
+                         out.print(" <div class=\"alert alert-danger\" role=\"alert\">Sorry Roll number not valid...!</div> ");
+                        rd.include(request, response);
+                     
+             }
              
              String subjectName[];
              int subjectCode[];
@@ -53,6 +66,9 @@ public class Result extends HttpServlet {
           int i_marksObtained[];
           int i_minMarks[];
           int i_maxMarks[];
+          char grade[];
+          char finalGrade=0;
+          int cgpa=0;
            int id = 0 ;
            String first = null;
            String last = null;
@@ -111,13 +127,19 @@ public class Result extends HttpServlet {
 "where s.student_id=i.student_id and s.student_id=e.student_id and su.subject_code=e.subject_code \n" +
 "and su.subject_code=i.subject_code and s.student_id="+num;
          ResultSet rs = stmt.executeQuery(sql);
+         if(!rs.next())
+         {
+             RequestDispatcher rd=request.getRequestDispatcher("OnlineResult");   
+              out.print("<div class=\"alert alert-danger\" role=\"alert\">Sorry Roll number not found. <br> please check the roll number!</div>");
+               rd.include(request, response);
+         }
          int walker=0;
          // Extract data from result set
          rs.last();
           int size=rs.getRow();
           
            subjectName=new String[size];
-          
+          float  gp=0;
            subjectCode=new int[size];
            e_marksObtained=new int[size];
            e_minMarks=new int[size];
@@ -126,7 +148,7 @@ public class Result extends HttpServlet {
            i_marksObtained=new int[size];
            i_minMarks=new int[size];
            i_maxMarks=new int[size];
-           
+           grade=new char[size];
            
           rs.beforeFirst();
              while(rs.next()){
@@ -178,7 +200,7 @@ public class Result extends HttpServlet {
             
             
          out.println("<table class=\"table\">");
-         out.println("<tr> <th> subject name </th> <th> subject code </th> <th> External marks obtained </th>  <th> External marks Minimum </th> <th> External marks maximum </th> <th> Internal marks obtained </th>  <th> internal marks Minimum </th> <th> internal marks maximum </th> </tr>  ");
+         out.println("<tr> <th> subject name </th> <th> subject code </th> <th> External marks obtained </th>  <th> External marks Minimum </th> <th> External marks maximum </th> <th> Internal marks obtained </th>  <th> internal marks Minimum </th> <th> internal marks maximum </th> <th> Grade </th> </tr>  ");
          
          for(int i=0;i<size;i++)
          {
@@ -191,12 +213,37 @@ public class Result extends HttpServlet {
           
            out.println("<td> "+i_marksObtained[i]+"</td>");
            out.println("<td>"+i_minMarks[i]+"</td>");
-           out.println("<td>"+i_maxMarks[i]+"</td> </tr>");  
+           out.println("<td>"+i_maxMarks[i]+"</td>");
+             gp+=((e_marksObtained[i]+i_marksObtained[i])*100/(e_maxMarks[i]+i_maxMarks[i]));
+           
+           if(((e_marksObtained[i]+i_marksObtained[i])*100/(e_maxMarks[i]+i_maxMarks[i]))>80){grade[i]='O';}
+           else if(((e_marksObtained[i]+i_marksObtained[i])*100/(e_maxMarks[i]+i_maxMarks[i]))>75){grade[i]='A';}
+           else if(((e_marksObtained[i]+i_marksObtained[i])*100/(e_maxMarks[i]+i_maxMarks[i]))>65){grade[i]='B';}
+           else if(((e_marksObtained[i]+i_marksObtained[i])*100/(e_maxMarks[i]+i_maxMarks[i]))>50){grade[i]='P';}
+           else {grade[i]='F';}
+           
+           out.println("<td>"+grade[i] +"</td></tr>");  
          }
          
          out.println("</table>");
+         
+         out.println("<table class=\"table\" >");
+         
+         out.println("<tr>");
+         if(flag==1)
+           out.println("<td align=\"left\"> Result: Pass</td>");
+         else
+           out.println("<td align=\"left\"> Result: Fail</td>");
+             
+         out.println("<td align=\"right\"> CGPA:"+gp/50 +" </td>");
+         
+         out.println("</tr>");
+         out.println("</table>");
+       
          out.println("</div></div></div></div>");//detail end
+          
         out.println(" </div></div>");//panel close
+         out.println("<a href=\"OnlineResult\"> Go back </a>");
          // Clean-up environment
          rs.close();
          stmt.close();
