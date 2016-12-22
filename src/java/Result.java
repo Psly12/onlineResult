@@ -105,7 +105,7 @@ public class Result extends HttpServlet {
        
          out.println("<html> <head><title>" + title + "</title></head>\n" +
          "<body>\n" +
-         "<div class=\"panel panel-info\">\n" +
+         "<div class=\"panel\">\n" +
 "  <div class=\"panel-heading\">"
                  + "<div class=\"page-header\">\n" +
 "  <h1 class=\"panel-title\"> Online Result </h1>\n" +
@@ -187,20 +187,24 @@ public class Result extends HttpServlet {
             out.println("First Name: " + first + "<br>");
             out.println("Last Name: " + last + "<br>");
             
-            //collapse
-                        out.println("<div class = \"panel-group \" id = \"accordion\">\n" +
-                            "<div class = \"panel panel-info \">\n" +
-                                "<div class = \"panel-heading\">\n" +
-                                "<h4 class = \"panel-title\">");
-            out.println("<a data-toggle = \"collapse\" data-parent = \"#accordion\" href = \"#collapseOne\" class=\"text-center btn btn-block\">\n" +
-                        "Show Details</a></h4>\n" +
-                        "</div>");
-            out.println("<div id = \"collapseOne\" class = \"panel-collapse collapse\">\n" +
-                            " <div class = \"panel-body\">");
+            //modal
+            out.println("<button class=\"btn btn-block btn-lg\" data-toggle=\"modal\" data-target=\"#myModal\">Show Results</button>"
+            +"<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\n" +
+"    <div class=\"vertical-alignment-helper\">\n" +
+"        <div class=\"modal-dialog vertical-align-center\">\n" +
+"            <div class=\"modal-content\">\n" +
+"                <div class=\"modal-header\">\n" +
+"                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span>\n" +
+"\n" +
+"                    </button>\n" +
+"                     <h4 class=\"modal-title\" id=\"myModalLabel\">Results</h4>\n" +
+"\n" +
+"                </div>\n" +
+"                <div class=\"modal-body\">");
             
             
          out.println("<table class=\"table-striped\">");
-         out.println("<tr> <th> subject name </th> <th> subject code </th> <th> External marks obtained </th>  <th> External marks Minimum </th> <th> External marks maximum </th> <th> Internal marks obtained </th>  <th> internal marks Minimum </th> <th> internal marks maximum </th> <th> Grade </th> </tr>  ");
+         out.println("<tr> <th> Subject Name </th> <th> Subject Code </th> <th> External marks obtained </th>  <th> External marks Minimum </th> <th> External marks maximum </th> <th> Internal marks obtained </th>  <th> internal marks Minimum </th> <th> internal marks maximum </th> <th> Grade </th> </tr>  ");
          
          for(int i=0;i<size;i++)
          {
@@ -227,7 +231,7 @@ public class Result extends HttpServlet {
          
          out.println("</table>");
          
-         out.println("<table class=\"table\" >");
+         out.println("<table class=\"table-striped\" >");
          
          out.println("<tr>");
          if(flag==1)
@@ -240,10 +244,17 @@ public class Result extends HttpServlet {
          out.println("</tr>");
          out.println("</table>");
        
-         out.println("</div></div></div></div>");//detail end
+         out.println("</div>\n" +
+"                <div class=\"modal-footer\">\n" +
+"                    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>                    \n" +
+"                </div>\n" +
+"            </div>\n" +
+"        </div>\n" +
+"    </div>\n" +
+"</div>");//detail end
           
         out.println(" </div></div>");//panel close
-         out.println("<a href=\"OnlineResult\"> Go back </a>");
+         out.println("<button  class=\"btn\"><a href=\"OnlineResult\"> Go back </a></button>");
          // Clean-up environment
          rs.close();
          stmt.close();
